@@ -1,22 +1,29 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Premium Automotive Marketplace API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: cars
+    description: Car inventory operations
+  - name: financing
+    description: Financing operations
+  - name: favorites
+    description: Favorites operations
+  - name: stats
+    description: Marketplace stats
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,13 +31,340 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /cars:
+    get:
+      operationId: listCars
+      tags: [cars]
+      summary: List cars with optional filters
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [sell, rent, all]
+        - name: make
+          in: query
+          schema:
+            type: string
+        - name: minPrice
+          in: query
+          schema:
+            type: integer
+        - name: maxPrice
+          in: query
+          schema:
+            type: integer
+        - name: year
+          in: query
+          schema:
+            type: integer
+        - name: transmission
+          in: query
+          schema:
+            type: string
+        - name: fuelType
+          in: query
+          schema:
+            type: string
+        - name: featured
+          in: query
+          schema:
+            type: boolean
+        - name: limit
+          in: query
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of cars
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Car"
+
+  /cars/{id}:
+    get:
+      operationId: getCar
+      tags: [cars]
+      summary: Get a single car
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Car details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Car"
+        "404":
+          description: Not found
+
+  /cars/makes:
+    get:
+      operationId: listCarMakes
+      tags: [cars]
+      summary: List all available car makes
+      responses:
+        "200":
+          description: List of makes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+
+  /cars/featured:
+    get:
+      operationId: listFeaturedCars
+      tags: [cars]
+      summary: Get featured cars for homepage
+      responses:
+        "200":
+          description: Featured cars
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Car"
+
+  /stats:
+    get:
+      operationId: getMarketplaceStats
+      tags: [stats]
+      summary: Get marketplace statistics
+      responses:
+        "200":
+          description: Marketplace stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MarketplaceStats"
+
+  /financing:
+    post:
+      operationId: submitFinancingApplication
+      tags: [financing]
+      summary: Submit a financing application
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FinancingApplicationInput"
+      responses:
+        "201":
+          description: Application submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FinancingApplication"
+
+  /financing/calculate:
+    post:
+      operationId: calculateFinancing
+      tags: [financing]
+      summary: Calculate monthly installment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FinancingCalculationInput"
+      responses:
+        "200":
+          description: Calculation result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FinancingCalculation"
+
+  /favorites:
+    get:
+      operationId: listFavorites
+      tags: [favorites]
+      summary: List favorited car IDs
+      responses:
+        "200":
+          description: List of car IDs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+    post:
+      operationId: toggleFavorite
+      tags: [favorites]
+      summary: Toggle a car favorite
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FavoriteInput"
+      responses:
+        "200":
+          description: Updated favorites list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+
 components:
   schemas:
     HealthStatus:
       type: object
+      required: [status]
       properties:
         status:
           type: string
-      required:
-        - status
 
+    Car:
+      type: object
+      required: [id, make, model, year, price, type, mileage, fuelType, transmission, imageUrl]
+      properties:
+        id:
+          type: integer
+        make:
+          type: string
+        model:
+          type: string
+        year:
+          type: integer
+        price:
+          type: integer
+        monthlyInstallment:
+          type: ["integer", "null"]
+        type:
+          type: string
+          enum: [sell, rent]
+        mileage:
+          type: integer
+        fuelType:
+          type: string
+        transmission:
+          type: string
+        color:
+          type: ["string", "null"]
+        imageUrl:
+          type: string
+        gallery:
+          type: array
+          items:
+            type: string
+        bodyType:
+          type: ["string", "null"]
+        isFeatured:
+          type: boolean
+        description:
+          type: ["string", "null"]
+        specs:
+          type: ["object", "null"]
+          additionalProperties: true
+
+    MarketplaceStats:
+      type: object
+      required: [totalCars, carsForSale, carsForRent, totalMakes, avgPrice]
+      properties:
+        totalCars:
+          type: integer
+        carsForSale:
+          type: integer
+        carsForRent:
+          type: integer
+        totalMakes:
+          type: integer
+        avgPrice:
+          type: integer
+        happyCustomers:
+          type: integer
+
+    FinancingApplicationInput:
+      type: object
+      required: [fullName, phone, carId, downPayment, months]
+      properties:
+        fullName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: ["string", "null"]
+        carId:
+          type: integer
+        downPayment:
+          type: integer
+        months:
+          type: integer
+
+    FinancingApplication:
+      type: object
+      required: [id, fullName, phone, carId, downPayment, months, status, createdAt]
+      properties:
+        id:
+          type: integer
+        fullName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: ["string", "null"]
+        carId:
+          type: integer
+        downPayment:
+          type: integer
+        months:
+          type: integer
+        status:
+          type: string
+        createdAt:
+          type: string
+
+    FinancingCalculationInput:
+      type: object
+      required: [price, downPayment, months]
+      properties:
+        price:
+          type: integer
+        downPayment:
+          type: integer
+        months:
+          type: integer
+        interestRate:
+          type: ["number", "null"]
+
+    FinancingCalculation:
+      type: object
+      required: [monthlyInstallment, totalAmount, totalInterest, downPayment, months]
+      properties:
+        monthlyInstallment:
+          type: integer
+        totalAmount:
+          type: integer
+        totalInterest:
+          type: integer
+        downPayment:
+          type: integer
+        months:
+          type: integer
+
+    FavoriteInput:
+      type: object
+      required: [carId]
+      properties:
+        carId:
+          type: integer
