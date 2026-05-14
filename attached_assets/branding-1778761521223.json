@@ -1,0 +1,136 @@
+{
+  "colorScheme": "light",
+  "fonts": [
+    {
+      "family": "DM Sans",
+      "role": "body"
+    }
+  ],
+  "colors": {
+    "primary": "#2F5B9C",
+    "secondary": "#587CB0",
+    "accent": "#5A7DB1",
+    "background": "#F3F3F3",
+    "textPrimary": "#000000",
+    "link": "#5A7DB1"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "DM Sans",
+      "heading": "DM Sans"
+    },
+    "fontStacks": {
+      "heading": [
+        "DM Sans",
+        "Helvetica",
+        "Arial",
+        "sans-serif"
+      ],
+      "body": [
+        "DM Sans",
+        "Helvetica",
+        "Arial",
+        "sans-serif"
+      ],
+      "paragraph": [
+        "DM Sans",
+        "Helvetica",
+        "Arial",
+        "sans-serif"
+      ]
+    },
+    "fontSizes": {
+      "h1": "30px",
+      "h2": "30px",
+      "body": "16px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 4,
+    "borderRadius": "6px"
+  },
+  "components": {
+    "input": {
+      "background": "#FFFFFF",
+      "textColor": "#A6AAAB",
+      "borderColor": "#E8E8E8",
+      "borderRadius": "10px",
+      "borderRadiusCorners": {
+        "topLeft": "10px",
+        "topRight": "0px",
+        "bottomRight": "0px",
+        "bottomLeft": "10px"
+      },
+      "shadow": "none"
+    },
+    "buttonPrimary": {
+      "background": "#FFFFFF",
+      "textColor": "#587CB0",
+      "borderColor": "#587CB0",
+      "borderRadius": "8px",
+      "borderRadiusCorners": {
+        "topLeft": "8px",
+        "topRight": "8px",
+        "bottomRight": "8px",
+        "bottomLeft": "8px"
+      },
+      "shadow": "none"
+    }
+  },
+  "images": {
+    "logo": "https://dhihk6wcjzylk.cloudfront.net/assets/logo.svg",
+    "favicon": "https://www.drivearabia.com/favicon.ico",
+    "ogImage": "https://www.drivearabia.com/wp-content/uploads/2024/12/drivearabia-logo.png",
+    "logoHref": "File saved at: attached_assets/logoHref.html",
+    "logoAlt": "File saved at: attached_assets/logoAlt.html"
+  },
+  "__llm_logo_reasoning": {
+    "selectedIndex": 0,
+    "reasoning": "Selected #0 because it is visible, located in the header, links to the homepage, and matches the brand name 'DriveArabia'.",
+    "confidence": 0.95,
+    "source": "llm"
+  },
+  "__llm_button_reasoning": {
+    "primary": {
+      "index": 0,
+      "text": "Get an Estimate",
+      "reasoning": "Button #0 has a distinct action-oriented text 'Get an Estimate' and uses a brand color for the text and border, making it stand out as a primary CTA."
+    },
+    "secondary": {
+      "index": 1,
+      "text": "Nissan Patrol vs. Toyota Land Cruiser",
+      "reasoning": "Button #1 is less action-oriented and uses a neutral text color, making it suitable as a secondary option."
+    },
+    "confidence": 0.9
+  },
+  "personality": {
+    "tone": "professional",
+    "energy": "medium",
+    "targetAudience": "car buyers in the Middle East"
+  },
+  "designSystem": {
+    "framework": "tailwind",
+    "componentLibrary": ""
+  },
+  "confidence": {
+    "buttons": 0.9,
+    "colors": 0.95,
+    "overall": 0.925
+  },
+  "__llm_metadata": {
+    "logoSelection": {
+      "llmCalled": true,
+      "llmSucceeded": true,
+      "finalSource": "llm",
+      "rawLogoSelection": {
+        "selectedLogoIndex": 0,
+        "selectedLogoReasoning": "Selected #0 because it is visible, located in the header, links to the homepage, and matches the brand name 'DriveArabia'.",
+        "confidence": 0.95
+      }
+    },
+    "buttonClassification": {
+      "llmCalled": true,
+      "llmSucceeded": true
+    }
+  }
+}
