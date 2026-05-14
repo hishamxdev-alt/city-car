@@ -1,6 +1,7 @@
 import React from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { FloatingWhatsApp } from "../FloatingWhatsApp";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -8,6 +9,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <Header />
       <main className="flex-1 w-full">{children}</main>
       <Footer />
+      <FloatingWhatsApp />
     </div>
   );
 }
