@@ -1,0 +1,57 @@
+<div class="min-h-screen bg-[#F7F8FA]">
+  <div class="bg-white border-b border-[#E5E7EB]">
+    <div class="container mx-auto px-4 lg:px-6 py-8">
+      <h1 class="text-2xl font-extrabold text-[#111827] font-display">Browse Vehicles</h1>
+      <p class="text-sm text-[#6B7280] mt-1">{{ isLoading() ? "Loading..." : cars().length + " vehicles available" }}</p>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 lg:px-6 py-8 flex flex-col md:flex-row gap-6 items-start">
+    <button type="button" class="md:hidden flex items-center gap-2 px-4 py-2.5 text-sm font-semibold bg-white border border-[#E5E7EB] rounded-xl shadow-sm text-[#374151]" (click)="isMobileFiltersOpen.set(!isMobileFiltersOpen())">
+      Filters <span *ngIf="activeFilterCount > 0" class="w-5 h-5 flex items-center justify-center rounded-full text-xs font-bold text-white bg-navy">{{ activeFilterCount }}</span>
+    </button>
+
+    <aside class="w-full md:w-60 shrink-0" [ngClass]="isMobileFiltersOpen() ? 'block' : 'hidden md:block'">
+      <div class="bg-white rounded-2xl border border-[#E5E7EB] p-5 space-y-6 sticky top-20">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-bold text-[#111827] font-display">Filters</h3>
+          <button *ngIf="activeFilterCount > 0" type="button" (click)="clearFilters()" class="text-xs font-semibold text-navy">Clear all</button>
+        </div>
+        <div>
+          <p class="filter-title">Type</p>
+          <button type="button" (click)="updateFilter('type', '')" class="filter-button" [class.filter-active]="!params()['type']">All</button>
+          <button type="button" (click)="updateFilter('type', 'sell')" class="filter-button" [class.filter-active]="params()['type'] === 'sell'">For Sale</button>
+          <button type="button" (click)="updateFilter('type', 'rent')" class="filter-button" [class.filter-active]="params()['type'] === 'rent'">For Rent</button>
+        </div>
+        <div>
+          <p class="filter-title">Make</p>
+          <select class="form-input" [value]="params()['make'] || ''" (change)="updateFilter('make', $any($event.target).value)">
+            <option value="">All Makes</option>
+            <option *ngFor="let make of makes()" [value]="make">{{ make }}</option>
+          </select>
+        </div>
+        <div>
+          <p class="filter-title">Max Price</p>
+          <button type="button" (click)="updateFilter('maxPrice', '')" class="filter-button" [class.filter-active]="!params()['maxPrice']">Any Price</button>
+          <button type="button" (click)="updateFilter('maxPrice', '50000')" class="filter-button" [class.filter-active]="params()['maxPrice'] === '50000'">Under $50,000</button>
+          <button type="button" (click)="updateFilter('maxPrice', '100000')" class="filter-button" [class.filter-active]="params()['maxPrice'] === '100000'">Under $100,000</button>
+          <button type="button" (click)="updateFilter('maxPrice', '200000')" class="filter-button" [class.filter-active]="params()['maxPrice'] === '200000'">Under $200,000</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="flex-1 min-w-0 w-full">
+      <div *ngIf="isLoading()" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div *ngFor="let item of [1, 2, 3, 4, 5, 6]" class="h-80 bg-white animate-pulse rounded-2xl border border-[#E5E7EB]"></div>
+      </div>
+      <div *ngIf="!isLoading() && cars().length === 0" class="text-center py-24 bg-white rounded-2xl border border-[#E5E7EB]">
+        <h3 class="text-lg font-bold text-[#111827] mb-2 font-display">No vehicles found</h3>
+        <p class="text-sm text-[#6B7280] mb-5">Try adjusting your filters to see more results.</p>
+        <button type="button" (click)="clearFilters()" class="secondary-button">Clear all filters</button>
+      </div>
+      <div *ngIf="!isLoading() && cars().length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <app-car-card *ngFor="let car of cars()" [car]="car" />
+      </div>
+    </main>
+  </div>
+</div>

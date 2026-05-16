@@ -1,0 +1,65 @@
+<section class="relative overflow-hidden select-none min-h-[580px]" (mouseenter)="setPaused(true)" (mouseleave)="setPaused(false)">
+  <div class="absolute inset-0 bg-gradient-to-br transition-opacity duration-500" [ngClass]="slide.bg"></div>
+  <div class="absolute inset-0 pointer-events-none" [style.background]="'radial-gradient(ellipse 55% 60% at 72% 45%, ' + slide.accentColor + '18 0%, transparent 70%)'"></div>
+
+  <div class="container mx-auto px-4 lg:px-6 relative z-10">
+    <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 min-h-[580px]">
+      <div class="flex-1 py-16 lg:py-24 space-y-6 max-w-xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#EBE5DC] bg-white/70 backdrop-blur-sm text-xs font-semibold text-[#4A4036] shadow-sm">
+          <span class="w-1.5 h-1.5 rounded-full" [style.backgroundColor]="slide.accentColor"></span>
+          {{ slide.badge }}
+          <span class="ml-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white" [style.backgroundColor]="slide.accentColor">{{ slide.tag }}</span>
+        </div>
+
+        <h1 class="text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.06] text-[#1C1917] font-display">
+          {{ slide.headline[0] }}<br />
+          <span [style.color]="slide.accentColor">{{ slide.headline[1] }}</span>
+        </h1>
+        <p class="text-[17px] text-[#726B62] leading-relaxed max-w-md">{{ slide.sub }}</p>
+
+        <div class="flex flex-wrap gap-3 pt-2">
+          <a [routerLink]="slide.cta1.href" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-white shadow-lg hover:opacity-90 transition-all hover:-translate-y-0.5" [style.backgroundColor]="slide.accentColor">
+            {{ slide.cta1.label }} →
+          </a>
+          <a [routerLink]="slide.cta2.href" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-[#4A4036] bg-white border border-[#EBE5DC] hover:border-[#C9A24D] shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5">
+            {{ slide.cta2.label }}
+          </a>
+        </div>
+      </div>
+
+      <div class="flex-1 relative flex items-end justify-center lg:self-end min-h-[360px]">
+        <div class="absolute top-12 left-2 bg-white rounded-2xl px-4 py-3 shadow-[0_8px_30px_rgba(28,25,23,0.10)] border border-[#EBE5DC] z-20">
+          <p class="text-[10px] font-bold uppercase tracking-widest text-[#9E9589] mb-0.5">{{ slide.chip1.label }}</p>
+          <p class="text-xl font-extrabold font-display" [style.color]="slide.accentColor">{{ slide.chip1.value }}</p>
+        </div>
+        <div class="absolute top-10 right-2 bg-white rounded-2xl px-4 py-3 shadow-[0_8px_30px_rgba(28,25,23,0.10)] border border-[#EBE5DC] z-20">
+          <p class="text-[10px] font-bold uppercase tracking-widest text-[#9E9589] mb-0.5">{{ slide.chip2.label }}</p>
+          <p class="text-xl font-extrabold text-[#1C1917] font-display">{{ slide.chip2.value }}</p>
+        </div>
+        <img [src]="slide.image" alt="Featured car" class="relative z-10 w-full max-w-[600px] h-auto object-contain drop-shadow-2xl" />
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-6 left-0 right-0 z-20">
+    <div class="container mx-auto px-4 lg:px-6 flex items-center gap-4">
+      <button type="button" (click)="prev()" class="w-9 h-9 flex items-center justify-center rounded-full bg-white border border-[#EBE5DC] shadow-sm hover:shadow-md transition-all text-[#4A4036]" aria-label="Previous">‹</button>
+      <div class="flex items-center gap-2">
+        <button
+          *ngFor="let item of slides; let i = index"
+          type="button"
+          (click)="goTo(i)"
+          class="relative overflow-hidden rounded-full transition-all bg-[#D6CFC6]"
+          [style.width.px]="i === current() ? 32 : 8"
+          [style.height.px]="8"
+          [style.backgroundColor]="i === current() ? slide.accentColor : '#D6CFC6'"
+          [attr.aria-label]="'Slide ' + (i + 1)"
+        >
+          <span *ngIf="i === current()" class="absolute inset-y-0 left-0 rounded-full opacity-30 bg-white" [style.width.%]="progress()"></span>
+        </button>
+      </div>
+      <button type="button" (click)="next()" class="w-9 h-9 flex items-center justify-center rounded-full bg-white border border-[#EBE5DC] shadow-sm hover:shadow-md transition-all text-[#4A4036]" aria-label="Next">›</button>
+      <span class="ml-auto text-xs font-bold text-[#B0A89E] tabular-nums">{{ current() + 1 | number: "2.0-0" }} / {{ slides.length | number: "2.0-0" }}</span>
+    </div>
+  </div>
+</section>

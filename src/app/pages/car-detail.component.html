@@ -1,0 +1,81 @@
+<div *ngIf="isLoading()" class="container mx-auto px-4 py-20 text-center">Loading...</div>
+<div *ngIf="!isLoading() && !car()" class="container mx-auto px-4 py-20 text-center">Car not found.</div>
+
+<div *ngIf="car() as vehicle" class="container mx-auto px-4 py-8">
+  <div class="text-sm text-muted-foreground mb-6 flex items-center gap-2">
+    <a routerLink="/" class="hover:text-foreground">Home</a>
+    <span>›</span>
+    <a routerLink="/inventory" class="hover:text-foreground">Inventory</a>
+    <span>›</span>
+    <span class="text-foreground font-medium">{{ vehicle.make }} {{ vehicle.model }}</span>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+    <div class="lg:col-span-2 space-y-8">
+      <div class="aspect-[16/9] bg-secondary rounded-2xl overflow-hidden border border-border">
+        <img [src]="vehicle.imageUrl" [alt]="vehicle.make + ' ' + vehicle.model" class="w-full h-full object-cover" />
+      </div>
+      <div>
+        <h1 class="text-3xl font-bold text-foreground mb-2 font-display">{{ vehicle.make }} {{ vehicle.model }} {{ vehicle.year }}</h1>
+        <p class="text-xl text-primary font-bold">{{ vehicle.type === "rent" ? "$" + vehicle.price + "/day" : "$" + (vehicle.price | number) }}</p>
+      </div>
+      <div class="bg-card border border-border rounded-xl p-6">
+        <h2 class="text-lg font-bold mb-4">Specifications</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div><span class="spec-label">Mileage</span><p class="font-medium">{{ vehicle.mileage | number }} km</p></div>
+          <div><span class="spec-label">Fuel Type</span><p class="font-medium">{{ vehicle.fuelType }}</p></div>
+          <div><span class="spec-label">Transmission</span><p class="font-medium">{{ vehicle.transmission }}</p></div>
+          <div><span class="spec-label">Body Type</span><p class="font-medium">{{ vehicle.bodyType || "N/A" }}</p></div>
+        </div>
+        <div *ngIf="vehicle.description" class="mt-6 pt-6 border-t border-border">
+          <h3 class="font-bold mb-2">Description</h3>
+          <p class="text-muted-foreground text-sm leading-relaxed">{{ vehicle.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <aside class="space-y-6">
+      <div class="bg-card border border-border rounded-xl p-6 shadow-sm">
+        <h2 class="text-lg font-bold mb-4">Interested?</h2>
+        <div class="space-y-4">
+          <a [href]="whatsappUrl(vehicle)" target="_blank" rel="noopener noreferrer" class="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white py-3 px-4 rounded-md font-medium transition-colors">
+            Chat on WhatsApp
+          </a>
+          <button type="button" class="w-full flex items-center justify-center gap-2 border border-input bg-transparent hover:bg-secondary py-3 px-4 rounded-md font-medium transition-colors text-foreground">
+            Save to Favorites
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-card border border-border rounded-xl p-6 shadow-sm">
+        <h2 class="text-lg font-bold mb-4">Apply for Financing</h2>
+        <form (ngSubmit)="submit()" class="space-y-4">
+          <label class="form-label">Full Name<input required name="fullName" [(ngModel)]="form.fullName" class="form-input mt-1" /></label>
+          <label class="form-label">Phone Number<input required type="tel" name="phone" [(ngModel)]="form.phone" class="form-input mt-1" /></label>
+          <label class="form-label">Email<input type="email" name="email" [(ngModel)]="form.email" class="form-input mt-1" /></label>
+          <label class="form-label">Down Payment ($)<input required type="number" name="downPayment" [(ngModel)]="form.downPayment" class="form-input mt-1" /></label>
+          <label class="form-label">Term
+            <select name="months" [(ngModel)]="form.months" class="form-input mt-1">
+              <option value="12">12 Months</option>
+              <option value="24">24 Months</option>
+              <option value="36">36 Months</option>
+              <option value="48">48 Months</option>
+              <option value="60">60 Months</option>
+            </select>
+          </label>
+          <button [disabled]="isSubmitting()" type="submit" class="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 rounded-md font-medium transition-colors">
+            {{ isSubmitting() ? "Submitting..." : "Submit Application" }}
+          </button>
+          <p *ngIf="message()" class="text-sm text-[#5C7C5A]">{{ message() }}</p>
+        </form>
+      </div>
+    </aside>
+  </div>
+
+  <div *ngIf="similarCars().length > 0" class="border-t border-border pt-12">
+    <h2 class="text-2xl font-bold mb-6 font-display">Similar Vehicles</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <app-car-card *ngFor="let item of similarCars()" [car]="item" />
+    </div>
+  </div>
+</div>

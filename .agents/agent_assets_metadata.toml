@@ -1,8 +1,0 @@
-uploads = []
-outputs = []
-
-[[generated]]
-id = "IUknLVszri2OkbnelAxWT"
-uri = "file://artifacts/automotive/public/hero-car.png"
-type = "image"
-title = "white BMW M3 sedan studio"

@@ -1,0 +1,133 @@
+<div class="w-full">
+  <app-hero-slider />
+
+  <section class="bg-navy">
+    <div class="container mx-auto px-4 lg:px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
+        <div class="py-9 px-6 text-center">
+          <div class="text-4xl font-extrabold mb-1 tabular-nums text-white font-display">
+            <app-stat-counter [target]="stats()?.totalCars ?? 15" suffix="+" />
+          </div>
+          <div class="stat-label">Premium Vehicles</div>
+        </div>
+        <div class="py-9 px-6 text-center">
+          <div class="text-4xl font-extrabold mb-1 tabular-nums text-white font-display">
+            <app-stat-counter [target]="stats()?.carsForSale ?? 13" />
+          </div>
+          <div class="stat-label">For Sale</div>
+        </div>
+        <div class="hidden md:block py-9 px-6 text-center">
+          <div class="text-4xl font-extrabold mb-1 tabular-nums text-white font-display">
+            <app-stat-counter [target]="stats()?.carsForRent ?? 2" />
+          </div>
+          <div class="stat-label">For Rent</div>
+        </div>
+        <div class="hidden md:block py-9 px-6 text-center">
+          <div class="text-4xl font-extrabold mb-1 tabular-nums text-gold font-display">
+            <app-stat-counter [target]="stats()?.happyCustomers ?? 1240" suffix="+" />
+          </div>
+          <div class="stat-label">Happy Clients</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-sand">
+    <div class="container mx-auto px-4 lg:px-6">
+      <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <div>
+          <p class="eyebrow">Our Story</p>
+          <h2 class="section-title">Built for the Gulf's Most <span class="text-gold">Discerning</span> Buyers</h2>
+          <p class="body-copy">
+            AutoPremier was founded in Dubai with a single belief: buying a premium car should feel as exceptional as driving one.
+          </p>
+          <p class="body-copy mb-8">
+            Every vehicle in our marketplace is personally reviewed, every listing is verified, and every transaction is backed by our team.
+          </p>
+          <div class="grid grid-cols-2 gap-4 mb-8">
+            <div class="fact-card"><strong>Dubai, UAE</strong><span>Headquartered</span></div>
+            <div class="fact-card"><strong>Est. 2019</strong><span>5+ years of trust</span></div>
+            <div class="fact-card"><strong>1,240+ Clients</strong><span>Served across the Gulf</span></div>
+            <div class="fact-card"><strong>4.9 / 5.0 Rating</strong><span>Based on 800+ reviews</span></div>
+          </div>
+          <a routerLink="/contact" class="primary-button">Get in Touch →</a>
+        </div>
+        <div class="relative hidden lg:block">
+          <div class="rounded-3xl overflow-hidden aspect-[4/5] shadow-[0_24px_60px_rgba(28,25,23,0.14)]">
+            <img src="/hero-car.png" alt="AutoPremier showroom" class="w-full h-full object-cover object-center scale-105" />
+          </div>
+          <div class="floating-card -bottom-6 -left-8">
+            <p class="text-xs font-bold uppercase tracking-widest text-[#726B62]">Growth</p>
+            <p class="text-xl font-extrabold font-display">+240%</p>
+            <p class="text-xs text-[#726B62]">Client growth since 2021</p>
+          </div>
+          <div class="floating-card -top-5 -right-6">
+            <p class="text-sm font-bold font-display">4.9 out of 5</p>
+            <p class="text-[11px] text-[#726B62]">800+ verified reviews</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4 lg:px-6">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+        <div>
+          <p class="eyebrow">Curated Selection</p>
+          <h2 class="text-3xl font-extrabold font-display">Featured Vehicles</h2>
+        </div>
+        <a routerLink="/inventory" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-navy">View All →</a>
+      </div>
+
+      <div class="flex gap-2 flex-wrap mb-8">
+        <button
+          *ngFor="let collection of collections"
+          type="button"
+          (click)="activeCollection.set(collection)"
+          class="px-4 py-1.5 rounded-full text-sm font-semibold border transition-all"
+          [ngClass]="
+            activeCollection() === collection
+              ? 'bg-navy text-white border-navy'
+              : 'bg-white text-[#726B62] border-[#EBE5DC]'
+          "
+        >
+          {{ collection }}
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <app-car-card *ngFor="let car of displayCars.slice(0, 6)" [car]="car" />
+      </div>
+      <div class="mt-10 text-center">
+        <a routerLink="/inventory" class="secondary-button">Browse All Vehicles →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="border-y py-5 overflow-hidden bg-sand border-[#EBE5DC]">
+    <div class="flex gap-12 items-center whitespace-nowrap w-max animate-marquee">
+      <span *ngFor="let item of ['Gulf premium marketplace','150-point inspection','Same-day financing','24/7 WhatsApp support','All nationalities welcome','Gulf premium marketplace','150-point inspection']" class="text-sm font-semibold shrink-0 text-[#726B62]">
+        {{ item }}
+      </span>
+    </div>
+  </div>
+
+  <section class="py-24 bg-white">
+    <div class="container mx-auto px-4 lg:px-6">
+      <div class="grid lg:grid-cols-2 gap-12 items-end mb-16">
+        <div>
+          <p class="eyebrow">Why AutoPremier</p>
+          <h2 class="section-title">A Different Kind of <span class="text-gold">Automotive</span> Experience</h2>
+        </div>
+        <p class="body-copy">We built a platform that respects your time, your intelligence, and your standards.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="feature-card"><span>01</span><h3>Verified, Not Just Listed</h3><p>Every car goes through a rigorous inspection before it appears on our platform.</p></div>
+        <div class="feature-card"><span>02</span><h3>Financing Without Friction</h3><p>Our digital financing application takes minutes and gets you moving faster.</p></div>
+        <div class="feature-card"><span>03</span><h3>Transparent Pricing</h3><p>Every listing shows clear pricing and financing terms upfront.</p></div>
+        <div class="feature-card"><span>04</span><h3>A Real Team</h3><p>Our specialists are available by WhatsApp, phone, or in-person.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
