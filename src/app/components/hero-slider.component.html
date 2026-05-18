@@ -1,65 +1,108 @@
-<section class="relative overflow-hidden select-none min-h-[580px]" (mouseenter)="setPaused(true)" (mouseleave)="setPaused(false)">
-  <div class="absolute inset-0 bg-gradient-to-br transition-opacity duration-500" [ngClass]="slide.bg"></div>
-  <div class="absolute inset-0 pointer-events-none" [style.background]="'radial-gradient(ellipse 55% 60% at 72% 45%, ' + slide.accentColor + '18 0%, transparent 70%)'"></div>
+<section class="relative -mt-[76px] min-h-[640px] overflow-hidden select-none pt-[88px]" (mouseenter)="setPaused(true)"
+  (mouseleave)="setPaused(false)">
+  <div class="absolute inset-0 bg-gradient-to-br transition-opacity duration-700" [ngClass]="slide.bg"></div>
+  <div class="noise-layer absolute inset-0 pointer-events-none"></div>
+  <div class="absolute inset-0 pointer-events-none"
+    [style.background]="'radial-gradient(ellipse 42% 46% at 73% 46%, ' + slide.accentColor + '2A 0%, transparent 72%)'">
+  </div>
+  <div class="absolute bottom-[-16rem] right-[8%] h-[34rem] w-[34rem] rounded-full bg-[#FFE79F]/35 blur-3xl"></div>
 
   <div class="container mx-auto px-4 lg:px-6 relative z-10">
-    <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 min-h-[580px]">
-      <div class="flex-1 py-16 lg:py-24 space-y-6 max-w-xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#EBE5DC] bg-white/70 backdrop-blur-sm text-xs font-semibold text-[#4A4036] shadow-sm">
-          <span class="w-1.5 h-1.5 rounded-full" [style.backgroundColor]="slide.accentColor"></span>
+    <div class="grid min-h-[552px] items-center gap-8 lg:grid-cols-[1fr_1fr] lg:gap-10">
+      <div class="reveal-up max-w-2xl space-y-6 py-14 lg:py-20">
+        <div
+          class="glass-panel inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-extrabold text-[#27374D]">
+          <span class="h-1.5 w-1.5 rounded-full" [style.backgroundColor]="slide.accentColor"></span>
           {{ slide.badge }}
-          <span class="ml-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white" [style.backgroundColor]="slide.accentColor">{{ slide.tag }}</span>
+          <span class="ml-1 rounded-full bg-[#27374D] px-2 py-0.5 text-[10px] font-black text-white">{{ slide.tag
+            }}</span>
         </div>
 
-        <h1 class="text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.06] text-[#1C1917] font-display">
-          {{ slide.headline[0] }}<br />
-          <span [style.color]="slide.accentColor">{{ slide.headline[1] }}</span>
-        </h1>
-        <p class="text-[17px] text-[#726B62] leading-relaxed max-w-md">{{ slide.sub }}</p>
+        <div class="space-y-5">
+          <h1 class="text-5xl font-extrabold leading-[0.98] text-[#27374D] md:text-6xl xl:text-[4.5rem] font-display">
+            {{ slide.headline[0] }}<br />
+            <span class="text-[#526D82]">{{ slide.headline[1] }}</span>
+          </h1>
+          <p class="max-w-xl text-[17px] leading-[1.8] text-[#606060]">{{ slide.sub }}</p>
+        </div>
 
-        <div class="flex flex-wrap gap-3 pt-2">
-          <a [routerLink]="slide.cta1.href" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-white shadow-lg hover:opacity-90 transition-all hover:-translate-y-0.5" [style.backgroundColor]="slide.accentColor">
-            {{ slide.cta1.label }} →
+        <div class="flex flex-wrap gap-3 pt-1">
+          <a [routerLink]="slide.cta1.href" class="primary-button group">
+            {{ slide.cta1.label }}
+            <span
+              class="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 transition-transform duration-300 group-hover:translate-x-1">></span>
           </a>
-          <a [routerLink]="slide.cta2.href" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-[#4A4036] bg-white border border-[#EBE5DC] hover:border-[#C9A24D] shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5">
+          <a [routerLink]="slide.cta2.href" class="secondary-button">
             {{ slide.cta2.label }}
           </a>
         </div>
+
+        <div class="hero-trust-strip">
+          <div><strong>2,000+</strong><span>cars available</span></div>
+          <div><strong>50+</strong><span>funding routes</span></div>
+          <div><strong>48h</strong><span>handover target</span></div>
+        </div>
       </div>
 
-      <div class="flex-1 relative flex items-end justify-center lg:self-end min-h-[360px]">
-        <div class="absolute top-12 left-2 bg-white rounded-2xl px-4 py-3 shadow-[0_8px_30px_rgba(28,25,23,0.10)] border border-[#EBE5DC] z-20">
-          <p class="text-[10px] font-bold uppercase tracking-widest text-[#9E9589] mb-0.5">{{ slide.chip1.label }}</p>
+      <div class="relative flex min-h-[390px] items-end justify-center lg:self-end">
+        <div class="absolute inset-x-8 bottom-11 h-16 rounded-[50%] bg-[#27374D]/15 blur-2xl"></div>
+        <div
+          class="absolute bottom-3 h-10 w-[70%] rounded-[50%] bg-gradient-to-r from-transparent via-white/80 to-transparent blur-sm">
+        </div>
+        <div class="absolute left-2 top-10 z-20 animate-float-soft rounded-2xl glass-panel px-3 py-2.5">
+          <p class="mb-0.5 text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#526D82]">{{ slide.chip1.label }}
+          </p>
           <p class="text-xl font-extrabold font-display" [style.color]="slide.accentColor">{{ slide.chip1.value }}</p>
         </div>
-        <div class="absolute top-10 right-2 bg-white rounded-2xl px-4 py-3 shadow-[0_8px_30px_rgba(28,25,23,0.10)] border border-[#EBE5DC] z-20">
-          <p class="text-[10px] font-bold uppercase tracking-widest text-[#9E9589] mb-0.5">{{ slide.chip2.label }}</p>
-          <p class="text-xl font-extrabold text-[#1C1917] font-display">{{ slide.chip2.value }}</p>
+        <div class="absolute right-0 top-8 z-20 rounded-2xl glass-panel px-3 py-2.5" style="animation-delay: 550ms">
+          <p class="mb-0.5 text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#526D82]">{{ slide.chip2.label }}
+          </p>
+          <p class="text-xl font-extrabold text-[#27374D] font-display">{{ slide.chip2.value }}</p>
         </div>
-        <img [src]="slide.image" alt="Featured car" class="relative z-10 w-full max-w-[600px] h-auto object-contain drop-shadow-2xl" />
+        <div
+          class="absolute bottom-20 right-8 z-20 hidden rounded-full bg-[#FFE79F]/80 px-4 py-2 text-xs font-extrabold text-[#27374D] shadow-[0_18px_38px_-26px_rgba(255,149,0,0.72)] md:block">
+          Apply online in minutes
+        </div>
+        <div class="hero-approval-card">
+          <div class="flex items-center justify-between border-b border-white/10 pb-4">
+            <div>
+              <p class="text-[10px] font-black uppercase tracking-[0.22em] text-[#FFE79F]/75">Loan file</p>
+              <p class="mt-1 text-lg font-extrabold text-white">Pre-check ready</p>
+            </div>
+            <span class="rounded-full bg-[#FFE79F] px-3 py-1 text-xs font-black text-[#27374D]">Live</span>
+          </div>
+          <div class="mt-4 space-y-3">
+            <div><span>Identity</span><strong>Received</strong></div>
+            <div><span>Income proof</span><strong>Reviewing</strong></div>
+            <div><span>Vehicle match</span><strong>Available</strong></div>
+          </div>
+        </div>
+        <img [src]="slide.image" alt="Featured luxury vehicle"
+          class="relative z-10 w-full max-w-[540px] object-contain drop-shadow-[0_28px_34px_rgba(39,55,77,0.22)] transition-all duration-700" />
       </div>
     </div>
   </div>
 
   <div class="absolute bottom-6 left-0 right-0 z-20">
     <div class="container mx-auto px-4 lg:px-6 flex items-center gap-4">
-      <button type="button" (click)="prev()" class="w-9 h-9 flex items-center justify-center rounded-full bg-white border border-[#EBE5DC] shadow-sm hover:shadow-md transition-all text-[#4A4036]" aria-label="Previous">‹</button>
-      <div class="flex items-center gap-2">
-        <button
-          *ngFor="let item of slides; let i = index"
-          type="button"
-          (click)="goTo(i)"
-          class="relative overflow-hidden rounded-full transition-all bg-[#D6CFC6]"
-          [style.width.px]="i === current() ? 32 : 8"
-          [style.height.px]="8"
-          [style.backgroundColor]="i === current() ? slide.accentColor : '#D6CFC6'"
-          [attr.aria-label]="'Slide ' + (i + 1)"
-        >
-          <span *ngIf="i === current()" class="absolute inset-y-0 left-0 rounded-full opacity-30 bg-white" [style.width.%]="progress()"></span>
+      <button type="button" (click)="prev()"
+        class="flex h-10 w-10 items-center justify-center rounded-full border border-white/70 bg-white/80 text-[#27374D] shadow-[0_18px_38px_-28px_rgba(39,55,77,0.65)] transition-all hover:-translate-y-0.5 hover:bg-[#FFE79F]/70"
+        aria-label="Previous">&lt;</button>
+      <div class="glass-panel flex items-center gap-2 rounded-full px-3 py-2">
+        <button *ngFor="let item of slides; let i = index" type="button" (click)="goTo(i)"
+          class="relative overflow-hidden rounded-full transition-all duration-500"
+          [style.width.px]="i === current() ? 38 : 9" [style.height.px]="9"
+          [style.backgroundColor]="i === current() ? slide.accentColor : '#526D8233'"
+          [attr.aria-label]="'Slide ' + (i + 1)">
+          <span *ngIf="i === current()" class="absolute inset-y-0 left-0 rounded-full bg-white/35"
+            [style.width.%]="progress()"></span>
         </button>
       </div>
-      <button type="button" (click)="next()" class="w-9 h-9 flex items-center justify-center rounded-full bg-white border border-[#EBE5DC] shadow-sm hover:shadow-md transition-all text-[#4A4036]" aria-label="Next">›</button>
-      <span class="ml-auto text-xs font-bold text-[#B0A89E] tabular-nums">{{ current() + 1 | number: "2.0-0" }} / {{ slides.length | number: "2.0-0" }}</span>
+      <button type="button" (click)="next()"
+        class="flex h-10 w-10 items-center justify-center rounded-full border border-white/70 bg-white/80 text-[#27374D] shadow-[0_18px_38px_-28px_rgba(39,55,77,0.65)] transition-all hover:-translate-y-0.5 hover:bg-[#FFE79F]/70"
+        aria-label="Next">&gt;</button>
+      <span class="ml-auto rounded-full bg-white/65 px-3 py-1.5 text-xs font-black tabular-nums text-[#526D82]">{{
+        current() + 1 | number: "2.0-0" }} / {{ slides.length | number: "2.0-0" }}</span>
     </div>
   </div>
 </section>

@@ -1,57 +1,121 @@
-<div class="min-h-screen bg-[#F7F8FA]">
-  <div class="bg-white border-b border-[#E5E7EB]">
-    <div class="container mx-auto px-4 lg:px-6 py-8">
-      <h1 class="text-2xl font-extrabold text-[#111827] font-display">Browse Vehicles</h1>
-      <p class="text-sm text-[#6B7280] mt-1">{{ isLoading() ? "Loading..." : cars().length + " vehicles available" }}</p>
+<div class="min-h-screen bg-[#F8F8F8]">
+  <div class="relative overflow-hidden bg-white pt-8">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_78%_12%,rgba(255,231,159,0.45),transparent_26rem),radial-gradient(circle_at_18%_36%,rgba(82,109,130,0.12),transparent_24rem)]"></div>
+    <div class="container relative mx-auto px-4 lg:px-6 py-12">
+      <div class="max-w-3xl">
+        <p class="eyebrow">Marketplace</p>
+        <h1 class="text-4xl font-extrabold leading-tight text-[#27374D] md:text-5xl font-display">Browse verified vehicles</h1>
+        <p class="mt-4 max-w-2xl text-base leading-relaxed text-[#606060]">
+          Compare ownership, monthly payments, and verified specifications in a cleaner product-style inventory.
+        </p>
+      </div>
+
+      <div class="glass-panel mt-8 rounded-[2rem] p-3">
+        <div class="grid gap-3 lg:grid-cols-[1fr_auto_auto]">
+          <label class="flex min-h-14 items-center gap-3 rounded-[1.35rem] bg-white px-4">
+            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-[#FFE79F]/70 text-xs font-black text-[#27374D]">S</span>
+            <input
+              type="search"
+              class="w-full bg-transparent text-sm font-semibold text-[#27374D] outline-none placeholder:text-[#526D82]/65"
+              placeholder="Search by brand, body style, or price point"
+              [value]="params()['q'] || ''"
+              (input)="updateFilter('q', $any($event.target).value)"
+            />
+          </label>
+          <button type="button" class="secondary-button lg:min-w-40" (click)="isMobileFiltersOpen.set(!isMobileFiltersOpen())">
+            Filters
+            <span *ngIf="activeFilterCount > 0" class="flex h-6 w-6 items-center justify-center rounded-full bg-[#FF9500] text-xs text-white">{{ activeFilterCount }}</span>
+          </button>
+          <button *ngIf="activeFilterCount > 0" type="button" (click)="clearFilters()" class="secondary-button lg:min-w-32">Clear</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="container mx-auto px-4 lg:px-6 py-8 flex flex-col md:flex-row gap-6 items-start">
-    <button type="button" class="md:hidden flex items-center gap-2 px-4 py-2.5 text-sm font-semibold bg-white border border-[#E5E7EB] rounded-xl shadow-sm text-[#374151]" (click)="isMobileFiltersOpen.set(!isMobileFiltersOpen())">
-      Filters <span *ngIf="activeFilterCount > 0" class="w-5 h-5 flex items-center justify-center rounded-full text-xs font-bold text-white bg-navy">{{ activeFilterCount }}</span>
-    </button>
+    <aside class="w-full md:w-72 shrink-0" [ngClass]="isMobileFiltersOpen() ? 'block' : 'hidden md:block'">
+      <div class="sticky top-24 rounded-[2rem] bg-[#EAEAEA]/70 p-1.5">
+        <div class="space-y-6 rounded-[1.6rem] bg-white p-5 shadow-[0_26px_70px_-48px_rgba(39,55,77,0.62)]">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-extrabold text-[#27374D] font-display">Smart filters</h3>
+              <p class="mt-1 text-xs text-[#606060]">{{ isLoading() ? "Loading..." : cars().length + " matches" }}</p>
+            </div>
+            <button *ngIf="activeFilterCount > 0" type="button" (click)="clearFilters()" class="text-xs font-extrabold text-[#D58900]">Reset</button>
+          </div>
 
-    <aside class="w-full md:w-60 shrink-0" [ngClass]="isMobileFiltersOpen() ? 'block' : 'hidden md:block'">
-      <div class="bg-white rounded-2xl border border-[#E5E7EB] p-5 space-y-6 sticky top-20">
-        <div class="flex items-center justify-between">
-          <h3 class="text-sm font-bold text-[#111827] font-display">Filters</h3>
-          <button *ngIf="activeFilterCount > 0" type="button" (click)="clearFilters()" class="text-xs font-semibold text-navy">Clear all</button>
-        </div>
-        <div>
-          <p class="filter-title">Type</p>
-          <button type="button" (click)="updateFilter('type', '')" class="filter-button" [class.filter-active]="!params()['type']">All</button>
-          <button type="button" (click)="updateFilter('type', 'sell')" class="filter-button" [class.filter-active]="params()['type'] === 'sell'">For Sale</button>
-          <button type="button" (click)="updateFilter('type', 'rent')" class="filter-button" [class.filter-active]="params()['type'] === 'rent'">For Rent</button>
-        </div>
-        <div>
-          <p class="filter-title">Make</p>
-          <select class="form-input" [value]="params()['make'] || ''" (change)="updateFilter('make', $any($event.target).value)">
-            <option value="">All Makes</option>
-            <option *ngFor="let make of makes()" [value]="make">{{ make }}</option>
-          </select>
-        </div>
-        <div>
-          <p class="filter-title">Max Price</p>
-          <button type="button" (click)="updateFilter('maxPrice', '')" class="filter-button" [class.filter-active]="!params()['maxPrice']">Any Price</button>
-          <button type="button" (click)="updateFilter('maxPrice', '50000')" class="filter-button" [class.filter-active]="params()['maxPrice'] === '50000'">Under $50,000</button>
-          <button type="button" (click)="updateFilter('maxPrice', '100000')" class="filter-button" [class.filter-active]="params()['maxPrice'] === '100000'">Under $100,000</button>
-          <button type="button" (click)="updateFilter('maxPrice', '200000')" class="filter-button" [class.filter-active]="params()['maxPrice'] === '200000'">Under $200,000</button>
+          <div>
+            <p class="filter-title">Type</p>
+            <div class="grid grid-cols-3 gap-2">
+              <button type="button" (click)="updateFilter('type', '')" class="filter-button text-center" [class.filter-active]="!params()['type']">All</button>
+              <button type="button" (click)="updateFilter('type', 'sell')" class="filter-button text-center" [class.filter-active]="params()['type'] === 'sell'">Sale</button>
+              <button type="button" (click)="updateFilter('type', 'rent')" class="filter-button text-center" [class.filter-active]="params()['type'] === 'rent'">Rent</button>
+            </div>
+          </div>
+
+          <div>
+            <p class="filter-title">Make</p>
+            <select class="form-input" [value]="params()['make'] || ''" (change)="updateFilter('make', $any($event.target).value)">
+              <option value="">All Makes</option>
+              <option *ngFor="let make of makes()" [value]="make">{{ make }}</option>
+            </select>
+          </div>
+
+          <div>
+            <div class="mb-3 flex items-center justify-between">
+              <p class="filter-title mb-0">Max price</p>
+              <span class="text-xs font-extrabold text-[#27374D]">{{ params()['maxPrice'] ? ('$' + (params()['maxPrice'] | number)) : 'Any' }}</span>
+            </div>
+            <input
+              type="range"
+              min="30000"
+              max="200000"
+              step="10000"
+              class="w-full accent-[#FF9500]"
+              [value]="params()['maxPrice'] || 200000"
+              (input)="updateFilter('maxPrice', $any($event.target).value)"
+            />
+            <div class="mt-3 grid grid-cols-2 gap-2">
+              <button type="button" (click)="updateFilter('maxPrice', '50000')" class="filter-button text-center" [class.filter-active]="params()['maxPrice'] === '50000'">Under $50k</button>
+              <button type="button" (click)="updateFilter('maxPrice', '100000')" class="filter-button text-center" [class.filter-active]="params()['maxPrice'] === '100000'">Under $100k</button>
+              <button type="button" (click)="updateFilter('maxPrice', '200000')" class="filter-button text-center col-span-2" [class.filter-active]="params()['maxPrice'] === '200000'">Under $200k</button>
+            </div>
+          </div>
+
+          <div class="rounded-3xl bg-[#27374D] p-4 text-white">
+            <p class="text-[10px] font-black uppercase tracking-[0.22em] text-[#FFE79F]">Finance view</p>
+            <p class="mt-2 text-sm leading-relaxed text-white/70">Monthly installments appear directly on vehicle cards for faster comparison.</p>
+          </div>
         </div>
       </div>
     </aside>
 
     <main class="flex-1 min-w-0 w-full">
-      <div *ngIf="isLoading()" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        <div *ngFor="let item of [1, 2, 3, 4, 5, 6]" class="h-80 bg-white animate-pulse rounded-2xl border border-[#E5E7EB]"></div>
+      <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-sm font-bold text-[#526D82]">{{ isLoading() ? "Loading inventory" : cars().length + " vehicles available" }}</p>
+        <div class="flex gap-2 overflow-x-auto pb-1">
+          <span *ngIf="params()['type']" class="rounded-full bg-[#FFE79F]/65 px-3 py-1.5 text-xs font-extrabold text-[#27374D]">{{ params()['type'] }}</span>
+          <span *ngIf="params()['make']" class="rounded-full bg-[#EAEAEA] px-3 py-1.5 text-xs font-extrabold text-[#27374D]">{{ params()['make'] }}</span>
+          <span *ngIf="params()['maxPrice']" class="rounded-full bg-[#EAEAEA] px-3 py-1.5 text-xs font-extrabold text-[#27374D]">Under ${{ params()['maxPrice'] | number }}</span>
+        </div>
       </div>
-      <div *ngIf="!isLoading() && cars().length === 0" class="text-center py-24 bg-white rounded-2xl border border-[#E5E7EB]">
-        <h3 class="text-lg font-bold text-[#111827] mb-2 font-display">No vehicles found</h3>
-        <p class="text-sm text-[#6B7280] mb-5">Try adjusting your filters to see more results.</p>
+
+      <div *ngIf="isLoading()" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div *ngFor="let item of [1, 2, 3, 4, 5, 6]" class="h-96 animate-pulse rounded-[1.9rem] bg-white shadow-[0_24px_70px_-52px_rgba(39,55,77,0.55)]"></div>
+      </div>
+      <div *ngIf="!isLoading() && cars().length === 0" class="rounded-[2rem] bg-white px-6 py-24 text-center shadow-[0_24px_70px_-52px_rgba(39,55,77,0.55)]">
+        <h3 class="mb-2 text-xl font-extrabold text-[#27374D] font-display">No vehicles found</h3>
+        <p class="mb-5 text-sm text-[#606060]">Try adjusting your filters to see a wider set of verified vehicles.</p>
         <button type="button" (click)="clearFilters()" class="secondary-button">Clear all filters</button>
       </div>
       <div *ngIf="!isLoading() && cars().length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         <app-car-card *ngFor="let car of cars()" [car]="car" />
       </div>
     </main>
+  </div>
+
+  <div class="fixed inset-x-4 bottom-4 z-30 flex gap-2 rounded-full border border-white/70 bg-white/90 p-2 shadow-[0_22px_55px_-34px_rgba(39,55,77,0.72)] backdrop-blur-xl md:hidden">
+    <button type="button" class="secondary-button flex-1 py-2.5" (click)="isMobileFiltersOpen.set(!isMobileFiltersOpen())">Filters</button>
+    <a href="https://wa.me/971501234567" target="_blank" rel="noopener noreferrer" class="primary-button flex-1 py-2.5">Ask</a>
   </div>
 </div>

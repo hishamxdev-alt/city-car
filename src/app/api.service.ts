@@ -58,7 +58,7 @@ export class ApiService {
           favorites.add(carId);
         }
         const next = Array.from(favorites);
-        localStorage.setItem("autopremier:favorites", JSON.stringify(next));
+        localStorage.setItem("CityCar:favorites", JSON.stringify(next));
         return of(next);
       }),
     );
@@ -85,6 +85,11 @@ export class ApiService {
       if (filters["make"] && !car.make.toLowerCase().includes(String(filters["make"]).toLowerCase())) {
         return false;
       }
+      if (filters["q"]) {
+        const query = String(filters["q"]).toLowerCase();
+        const searchable = `${car.make} ${car.model} ${car.bodyType} ${car.fuelType} ${car.transmission} ${car.year} ${car.price}`.toLowerCase();
+        if (!searchable.includes(query)) return false;
+      }
       if (filters["maxPrice"] && car.price > Number(filters["maxPrice"])) return false;
       if (filters["minPrice"] && car.price < Number(filters["minPrice"])) return false;
       return true;
@@ -92,7 +97,7 @@ export class ApiService {
   }
 
   private localFavorites(): number[] {
-    const value = localStorage.getItem("autopremier:favorites");
+    const value = localStorage.getItem("CityCar:favorites");
     if (!value) return [];
     try {
       return JSON.parse(value) as number[];

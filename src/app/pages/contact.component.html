@@ -1,20 +1,42 @@
 <div class="container mx-auto px-4 py-16">
   <div class="max-w-5xl mx-auto">
     <h1 class="text-4xl font-bold text-center mb-4 font-display">Contact Us</h1>
-    <p class="text-center text-muted-foreground mb-12 text-lg">We're here to help you find your next premium vehicle.</p>
+    <p class="text-center text-muted-foreground mb-12 text-lg">We're here to help you find your next premium vehicle.
+    </p>
 
     <div class="grid md:grid-cols-2 gap-12">
       <div>
         <h2 class="text-2xl font-bold mb-6">Get in Touch</h2>
         <div class="space-y-6">
-          <div class="contact-row"><div><h3>Showroom Location</h3><p>Sheikh Zayed Road<br />Dubai, United Arab Emirates</p></div></div>
-          <div class="contact-row"><div><h3>Phone Number</h3><p>+971 50 123 4567<br />+971 4 123 4567</p></div></div>
-          <div class="contact-row"><div><h3>Email Address</h3><p>hello&#64;autopremier.com<br />sales&#64;autopremier.com</p></div></div>
-          <div class="contact-row"><div><h3>Business Hours</h3><p>Monday - Saturday: 9:00 AM - 9:00 PM<br />Sunday: Closed</p></div></div>
+          <div class="contact-row">
+            <div>
+              <h3>Showroom Location</h3>
+              <p>Sheikh Zayed Road<br />Dubai, United Arab Emirates</p>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div>
+              <h3>Phone Number</h3>
+              <p>+971 50 123 4567<br />+971 4 123 4567</p>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div>
+              <h3>Email Address</h3>
+              <p>hello&#64;CityCar.com<br />sales&#64;CityCar.com</p>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div>
+              <h3>Business Hours</h3>
+              <p>Monday - Saturday: 9:00 AM - 9:00 PM<br />Sunday: Closed</p>
+            </div>
+          </div>
         </div>
         <div class="mt-8 pt-8 border-t border-border">
           <h3 class="font-semibold mb-4 text-lg">Quick Response</h3>
-          <a href="https://wa.me/971501234567" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white py-3 px-6 rounded-md font-medium transition-colors shadow-sm">
+          <a href="https://wa.me/971501234567" target="_blank" rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white py-3 px-6 rounded-md font-medium transition-colors shadow-sm">
             Chat with us on WhatsApp
           </a>
         </div>
@@ -24,10 +46,15 @@
         <h2 class="text-2xl font-bold mb-6">Send a Message</h2>
         <form class="space-y-4" (ngSubmit)="sent = true">
           <label class="form-label">Name<input required class="form-input mt-1" placeholder="Your name" /></label>
-          <label class="form-label">Email<input required type="email" class="form-input mt-1" placeholder="your@email.com" /></label>
-          <label class="form-label">Phone<input type="tel" class="form-input mt-1" placeholder="Your phone number" /></label>
-          <label class="form-label">Message<textarea rows="4" class="form-input mt-1 resize-none" placeholder="How can we help you?"></textarea></label>
-          <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 rounded-md font-medium transition-colors">Send Message</button>
+          <label class="form-label">Email<input required type="email" class="form-input mt-1"
+              placeholder="your@email.com" /></label>
+          <label class="form-label">Phone<input type="tel" class="form-input mt-1"
+              placeholder="Your phone number" /></label>
+          <label class="form-label">Message<textarea rows="4" class="form-input mt-1 resize-none"
+              placeholder="How can we help you?"></textarea></label>
+          <button type="submit"
+            class="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 rounded-md font-medium transition-colors">Send
+            Message</button>
           <p *ngIf="sent" class="text-sm text-[#5C7C5A]">Thanks. Our team will reply shortly.</p>
         </form>
       </div>

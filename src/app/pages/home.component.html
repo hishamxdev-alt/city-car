@@ -1,132 +1,444 @@
-<div class="w-full">
+<div class="w-full overflow-hidden">
   <app-hero-slider />
 
-  <section class="bg-navy">
+  <section class="relative -mt-24 z-20">
     <div class="container mx-auto px-4 lg:px-6">
-      <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
-        <div class="py-9 px-6 text-center">
-          <div class="text-4xl font-extrabold mb-1 tabular-nums text-white font-display">
-            <app-stat-counter [target]="stats()?.totalCars ?? 15" suffix="+" />
-          </div>
-          <div class="stat-label">Premium Vehicles</div>
+      <div class="search-dock">
+        <div class="search-dock__tabs">
+          <button type="button" class="is-active">Buy</button>
+          <button type="button">Finance</button>
+          <button type="button">Rent</button>
         </div>
-        <div class="py-9 px-6 text-center">
-          <div class="text-4xl font-extrabold mb-1 tabular-nums text-white font-display">
-            <app-stat-counter [target]="stats()?.carsForSale ?? 13" />
-          </div>
-          <div class="stat-label">For Sale</div>
+
+        <div class="search-dock__grid">
+          <label>
+            <span>Brand</span>
+            <select>
+              <option>All brands</option>
+              <option>Mercedes-Benz</option>
+              <option>BMW</option>
+              <option>Land Rover</option>
+            </select>
+          </label>
+          <label>
+            <span>Model</span>
+            <select>
+              <option>Any model</option>
+              <option>3 Series</option>
+              <option>C-Class</option>
+              <option>Range Rover Sport</option>
+            </select>
+          </label>
+          <label>
+            <span>Year</span>
+            <select>
+              <option>2020 - 2026</option>
+              <option>2024 - 2026</option>
+              <option>2022 - 2023</option>
+              <option>Before 2022</option>
+            </select>
+          </label>
+          <label>
+            <span>Body</span>
+            <select>
+              <option>Any body type</option>
+              <option>SUV</option>
+              <option>Sedan</option>
+              <option>Coupe</option>
+            </select>
+          </label>
+          <label>
+            <span>Budget</span>
+            <select>
+              <option>Monthly payment</option>
+              <option>Under AED 2,500</option>
+              <option>AED 2,500 - 5,000</option>
+              <option>AED 5,000+</option>
+            </select>
+          </label>
+          <a routerLink="/inventory" class="search-dock__button">Search cars</a>
         </div>
-        <div class="hidden md:block py-9 px-6 text-center">
-          <div class="text-4xl font-extrabold mb-1 tabular-nums text-white font-display">
-            <app-stat-counter [target]="stats()?.carsForRent ?? 2" />
-          </div>
-          <div class="stat-label">For Rent</div>
-        </div>
-        <div class="hidden md:block py-9 px-6 text-center">
-          <div class="text-4xl font-extrabold mb-1 tabular-nums text-gold font-display">
-            <app-stat-counter [target]="stats()?.happyCustomers ?? 1240" suffix="+" />
-          </div>
-          <div class="stat-label">Happy Clients</div>
+
+        <div class="search-dock__links">
+          <a routerLink="/inventory">Advanced search</a>
+          <a routerLink="/financing">Get pre-approved</a>
+          <a routerLink="/contact">Request a specific car</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="py-24 bg-sand">
+  <section class="relative mt-6 z-10">
     <div class="container mx-auto px-4 lg:px-6">
-      <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div class="overflow-hidden rounded-[2rem] bg-[#27374D] p-1 shadow-[0_28px_70px_-42px_rgba(39,55,77,0.85)]">
+        <div
+          class="grid grid-cols-2 rounded-[1.65rem] bg-gradient-to-br from-[#27374D] via-[#2f4159] to-[#526D82] md:grid-cols-4">
+          <div class="group relative px-4 py-6 text-center transition-colors hover:bg-white/5">
+            <div class="text-3xl font-extrabold mb-1 tabular-nums text-white font-display">
+              <app-stat-counter [target]="2000" suffix="+" />
+            </div>
+            <div class="stat-label">Available Cars</div>
+          </div>
+          <div
+            class="group relative px-4 py-6 text-center transition-colors hover:bg-white/5 md:border-l md:border-white/10">
+            <div class="text-3xl font-extrabold mb-1 tabular-nums text-white font-display">
+              <app-stat-counter [target]="50" suffix="+" />
+            </div>
+            <div class="stat-label">Funding Routes</div>
+          </div>
+          <div
+            class="hidden px-4 py-6 text-center transition-colors hover:bg-white/5 md:block md:border-l md:border-white/10">
+            <div class="text-3xl font-extrabold mb-1 tabular-nums text-white font-display">
+              <app-stat-counter [target]="48" suffix="h" />
+            </div>
+            <div class="stat-label">Handover Target</div>
+          </div>
+          <div
+            class="hidden px-4 py-6 text-center transition-colors hover:bg-white/5 md:block md:border-l md:border-white/10">
+            <div class="text-3xl font-extrabold mb-1 tabular-nums text-[#FFE79F] font-display">
+              <app-stat-counter [target]="stats()?.happyCustomers ?? 1240" suffix="+" />
+            </div>
+            <div class="stat-label">Applications Handled</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative bg-white py-18">
+    <div class="container mx-auto px-4 lg:px-6">
+      <div class="mb-8 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
+          <p class="eyebrow">Marketplace stock</p>
+          <h2 class="section-title mb-0">Cars ready for finance</h2>
+        </div>
+        <a routerLink="/inventory" class="secondary-button hidden sm:inline-flex">View all ></a>
+      </div>
+
+      <div class="market-tabs">
+        <button type="button" class="is-active">Recently added</button>
+        <button type="button">Best monthly plans</button>
+        <button type="button">Ready for 48h handover</button>
+        <button type="button">Test drive available</button>
+      </div>
+
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        <app-car-card *ngFor="let car of displayCars.slice(0, 4)" [car]="car" />
+      </div>
+
+      <div class="mt-10 flex flex-col items-center justify-between gap-4 rounded-[1.5rem] bg-[#F7F5EF] p-4 sm:flex-row sm:px-6">
+        <p class="text-sm font-bold text-[#526D82]">Need a specific brand, installment, or approval route?</p>
+        <a routerLink="/contact" class="text-sm font-black text-[#FF9500] transition-colors hover:text-[#D58900]">Request a car ></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative bg-[#EAEAEA] py-20">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_85%_18%,rgba(255,231,159,0.45),transparent_28rem)]">
+    </div>
+    <div class="container relative mx-auto px-4 lg:px-6">
+      <div class="grid items-center gap-12 lg:grid-cols-[1fr_0.82fr] lg:gap-16">
+        <div class="reveal-up">
           <p class="eyebrow">Our Story</p>
-          <h2 class="section-title">Built for the Gulf's Most <span class="text-gold">Discerning</span> Buyers</h2>
+          <h2 class="section-title">Built for the Gulf's most discerning buyers</h2>
           <p class="body-copy">
-            AutoPremier was founded in Dubai with a single belief: buying a premium car should feel as exceptional as driving one.
+            CityCar was founded in Dubai with a simple standard: buying a premium car should feel precise, calm, and
+            fully transparent.
           </p>
           <p class="body-copy mb-8">
-            Every vehicle in our marketplace is personally reviewed, every listing is verified, and every transaction is backed by our team.
+            Every vehicle is reviewed, every listing is verified, and every finance option is presented before the
+            decision pressure starts.
           </p>
           <div class="grid grid-cols-2 gap-4 mb-8">
             <div class="fact-card"><strong>Dubai, UAE</strong><span>Headquartered</span></div>
-            <div class="fact-card"><strong>Est. 2019</strong><span>5+ years of trust</span></div>
+            <div class="fact-card"><strong>Est. 2019</strong><span>Trusted since launch</span></div>
             <div class="fact-card"><strong>1,240+ Clients</strong><span>Served across the Gulf</span></div>
-            <div class="fact-card"><strong>4.9 / 5.0 Rating</strong><span>Based on 800+ reviews</span></div>
+            <div class="fact-card"><strong>4.9 / 5.0</strong><span>Verified reviews</span></div>
           </div>
-          <a routerLink="/contact" class="primary-button">Get in Touch →</a>
+          <a routerLink="/contact" class="primary-button group">Get in touch <span
+              class="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 transition-transform duration-300 group-hover:translate-x-1">></span></a>
         </div>
         <div class="relative hidden lg:block">
-          <div class="rounded-3xl overflow-hidden aspect-[4/5] shadow-[0_24px_60px_rgba(28,25,23,0.14)]">
-            <img src="/hero-car.png" alt="AutoPremier showroom" class="w-full h-full object-cover object-center scale-105" />
+          <div class="absolute -left-6 top-10 h-40 w-40 rounded-full bg-[#FFE79F]/55 blur-3xl"></div>
+          <div class="ml-auto max-w-[420px] rounded-[1.5rem] bg-white/45 p-2 shadow-[0_24px_60px_-44px_rgba(39,55,77,0.7)]">
+            <div class="overflow-hidden rounded-[1.15rem] aspect-[4/4.35]">
+              <img src="/hero-car.png" alt="CityCar showroom vehicle"
+                class="w-full h-full object-cover object-center scale-100" />
+            </div>
           </div>
-          <div class="floating-card -bottom-6 -left-8">
-            <p class="text-xs font-bold uppercase tracking-widest text-[#726B62]">Growth</p>
-            <p class="text-xl font-extrabold font-display">+240%</p>
-            <p class="text-xs text-[#726B62]">Client growth since 2021</p>
+          <div class="floating-card -bottom-4 left-0">
+            <p class="text-[10px] font-black uppercase tracking-[0.22em] text-[#526D82]">Growth</p>
+            <p class="text-2xl font-extrabold text-[#27374D] font-display">+240%</p>
+            <p class="text-xs text-[#606060]">Client growth since 2021</p>
           </div>
-          <div class="floating-card -top-5 -right-6">
-            <p class="text-sm font-bold font-display">4.9 out of 5</p>
-            <p class="text-[11px] text-[#726B62]">800+ verified reviews</p>
+          <div class="floating-card -top-4 right-0">
+            <p class="text-sm font-extrabold text-[#27374D] font-display">4.9 out of 5</p>
+            <p class="text-[11px] text-[#606060]">800+ verified reviews</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="py-20 bg-white">
+  <section class="relative bg-white py-24">
     <div class="container mx-auto px-4 lg:px-6">
-      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+      <div class="mb-10 grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
         <div>
-          <p class="eyebrow">Curated Selection</p>
-          <h2 class="text-3xl font-extrabold font-display">Featured Vehicles</h2>
+          <p class="eyebrow">Authorized network</p>
+          <h2 class="section-title mb-0">A wide choice in one showroom flow</h2>
         </div>
-        <a routerLink="/inventory" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-navy">View All →</a>
+        <p class="body-copy mb-0">Inspired by dealer-group buying behavior: shoppers should be able to scan brands,
+          compare stock, and start finance without feeling locked into one model too early.</p>
       </div>
 
-      <div class="flex gap-2 flex-wrap mb-8">
-        <button
-          *ngFor="let collection of collections"
-          type="button"
-          (click)="activeCollection.set(collection)"
-          class="px-4 py-1.5 rounded-full text-sm font-semibold border transition-all"
-          [ngClass]="
-            activeCollection() === collection
-              ? 'bg-navy text-white border-navy'
-              : 'bg-white text-[#726B62] border-[#EBE5DC]'
-          "
-        >
-          {{ collection }}
-        </button>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <app-car-card *ngFor="let car of displayCars.slice(0, 6)" [car]="car" />
-      </div>
-      <div class="mt-10 text-center">
-        <a routerLink="/inventory" class="secondary-button">Browse All Vehicles →</a>
+      <div class="brand-cloud">
+        <a routerLink="/inventory">Mercedes-Benz</a>
+        <a routerLink="/inventory">BMW</a>
+        <a routerLink="/inventory">Lexus</a>
+        <a routerLink="/inventory">Land Rover</a>
+        <a routerLink="/inventory">Audi</a>
+        <a routerLink="/inventory">Porsche</a>
+        <a routerLink="/inventory">Toyota</a>
+        <a routerLink="/inventory">Nissan</a>
+        <a routerLink="/inventory">Ford</a>
+        <a routerLink="/inventory">Jeep</a>
+        <a routerLink="/inventory">Hyundai</a>
+        <a routerLink="/inventory">Kia</a>
       </div>
     </div>
   </section>
 
-  <div class="border-y py-5 overflow-hidden bg-sand border-[#EBE5DC]">
+  <section class="relative isolate bg-[#F7F5EF] py-28">
+    <div class="absolute inset-0 noise-layer opacity-80"></div>
+    <div class="container relative mx-auto px-4 lg:px-6">
+      <div class="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-16">
+        <div class="lg:sticky lg:top-28">
+          <p class="eyebrow">Car loan application</p>
+          <h2 class="section-title max-w-2xl">Digital intermediation in car financing</h2>
+          <p class="body-copy">
+            Start the loan request from home, understand the likely route, and let CityCar coordinate the paperwork with
+            suitable funding entities before the showroom visit becomes necessary.
+          </p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a routerLink="/financing" class="primary-button">Apply for a car loan <span class="text-base">></span></a>
+            <a routerLink="/contact" class="secondary-button">Talk to an advisor</a>
+          </div>
+        </div>
+
+        <div class="finance-board">
+          <div class="finance-board__header">
+            <div>
+              <p class="text-[10px] font-black uppercase tracking-[0.24em] text-[#FFE79F]/80">Application desk</p>
+              <h3 class="mt-3 text-2xl font-extrabold text-white font-display">One file, prepared properly</h3>
+            </div>
+            <div class="rounded-2xl bg-white/10 px-4 py-3 text-right">
+              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/45">Initial response</p>
+              <p class="mt-1 text-xl font-extrabold text-white">24h</p>
+            </div>
+          </div>
+
+          <div class="finance-switch" aria-label="Application type">
+            <button type="button" class="is-active">Individuals</button>
+            <button type="button">Company</button>
+          </div>
+
+          <div class="mt-10 grid gap-4 md:grid-cols-[1.15fr_0.85fr]">
+            <div class="rounded-[1.5rem] bg-white p-5 text-[#27374D] shadow-[0_26px_70px_-44px_rgba(0,0,0,0.55)]">
+              <div class="mb-5 flex items-center justify-between border-b border-[#EAEAEA] pb-4">
+                <span class="text-xs font-extrabold text-[#526D82]">Requested amount</span>
+                <strong class="text-xl font-extrabold">AED 184,000</strong>
+              </div>
+              <div class="space-y-4">
+                <div class="finance-row"><span>Vehicle selected</span><strong>Verified premium SUV</strong></div>
+                <div class="finance-row"><span>Documents</span><strong>4 of 5 ready</strong></div>
+                <div class="finance-row"><span>Advisor status</span><strong>Reviewing file</strong></div>
+              </div>
+            </div>
+
+            <div class="grid content-between gap-4">
+              <div class="finance-note">
+                <span>01</span>
+                <p>Pre-check documents and expected installment range.</p>
+              </div>
+              <div class="finance-note">
+                <span>02</span>
+                <p>Route the request to suitable funding entities.</p>
+              </div>
+              <div class="finance-note">
+                <span>03</span>
+                <p>Confirm approval, signing, and handover timing.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-20">
+        <div class="mb-10 max-w-3xl">
+          <p class="eyebrow">How it works</p>
+          <h2 class="section-title">Steps to get your new car</h2>
+        </div>
+
+        <div class="journey-line">
+          <article class="journey-step">
+            <span>01</span>
+            <h3>Fill out the order from your home</h3>
+            <p>Choose the car, send the core details, and submit the request digitally with advisor support when needed.</p>
+          </article>
+          <article class="journey-step">
+            <span>02</span>
+            <h3>Get approved</h3>
+            <p>CityCar prepares the file and coordinates the approval flow with the suitable funding entity.</p>
+          </article>
+          <article class="journey-step journey-step--strong">
+            <span>03</span>
+            <h3>Receive your car within 48 hours</h3>
+            <p>After approval, signing, payment, and readiness are confirmed, delivery or collection is scheduled around your day.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="border-y border-[#EAEAEA] bg-[#27374D] py-5 overflow-hidden">
     <div class="flex gap-12 items-center whitespace-nowrap w-max animate-marquee">
-      <span *ngFor="let item of ['Gulf premium marketplace','150-point inspection','Same-day financing','24/7 WhatsApp support','All nationalities welcome','Gulf premium marketplace','150-point inspection']" class="text-sm font-semibold shrink-0 text-[#726B62]">
+      <span
+        *ngFor="let item of ['Gulf premium marketplace','150-point inspection','Same-day financing','24/7 WhatsApp support','All nationalities welcome','Luxury rental fleet','Gulf premium marketplace','150-point inspection']"
+        class="text-sm font-extrabold uppercase tracking-[0.16em] shrink-0 text-white/60">
         {{ item }}
       </span>
     </div>
   </div>
 
-  <section class="py-24 bg-white">
+  <section class="relative bg-[#F7F5EF] py-28">
     <div class="container mx-auto px-4 lg:px-6">
-      <div class="grid lg:grid-cols-2 gap-12 items-end mb-16">
+      <div class="mb-14 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
         <div>
-          <p class="eyebrow">Why AutoPremier</p>
-          <h2 class="section-title">A Different Kind of <span class="text-gold">Automotive</span> Experience</h2>
+          <p class="eyebrow">Customer reviews</p>
+          <h2 class="section-title mb-0">Proof from real buying moments</h2>
         </div>
-        <p class="body-copy">We built a platform that respects your time, your intelligence, and your standards.</p>
+        <p class="body-copy mb-0">Customers come to CityCar for specific reasons: finance clarity before they commit,
+          accurate listings, and a handover that does not waste the day.</p>
       </div>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="feature-card"><span>01</span><h3>Verified, Not Just Listed</h3><p>Every car goes through a rigorous inspection before it appears on our platform.</p></div>
-        <div class="feature-card"><span>02</span><h3>Financing Without Friction</h3><p>Our digital financing application takes minutes and gets you moving faster.</p></div>
-        <div class="feature-card"><span>03</span><h3>Transparent Pricing</h3><p>Every listing shows clear pricing and financing terms upfront.</p></div>
-        <div class="feature-card"><span>04</span><h3>A Real Team</h3><p>Our specialists are available by WhatsApp, phone, or in-person.</p></div>
+
+      <div class="review-wall">
+        <article class="review-card review-card--large">
+          <p class="review-quote">"The financing process was clear from the first call. I knew the installment range
+            before visiting and received the car two days later."</p>
+          <div class="mt-8 flex items-end justify-between gap-4">
+            <div>
+              <h3>Khalid A.</h3>
+              <p>Mercedes-Benz buyer</p>
+            </div>
+            <span>5.0</span>
+          </div>
+        </article>
+        <article class="review-card review-card--dark">
+          <p class="review-quote">"Everything happened through WhatsApp and one visit for final signing. The team
+            handled the bank questions quickly."</p>
+          <div class="mt-8 flex items-end justify-between gap-4">
+            <div>
+              <h3>Mariam S.</h3>
+              <p>Range Rover buyer</p>
+            </div>
+            <span>5.0</span>
+          </div>
+        </article>
+        <article class="review-card">
+          <p class="review-quote">"The listing was accurate, the price was transparent, and the handover felt organized.
+            No pressure, no confusing fees."</p>
+          <div class="mt-8 flex items-end justify-between gap-4">
+            <div>
+              <h3>Omar R.</h3>
+              <p>BMW buyer</p>
+            </div>
+            <span>4.9</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative bg-white py-28">
+    <div class="container mx-auto px-4 lg:px-6">
+      <div class="funding-panel">
+        <div>
+          <p class="eyebrow">Funding entities</p>
+          <h2 class="section-title">Coordinated with trusted financing partners</h2>
+          <p class="body-copy mb-0">CityCar acts as your digital intermediary, preparing and routing applications to
+            suitable funding entities based on profile, vehicle, and availability.</p>
+        </div>
+        <div class="funding-grid">
+          <div>Bank partners</div>
+          <div>Auto finance</div>
+          <div>Leasing providers</div>
+          <div>Islamic finance</div>
+          <div>Salary transfer</div>
+          <div>Corporate plans</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative bg-[#F7F5EF] py-28">
+    <div class="container mx-auto px-4 lg:px-6">
+      <div class="grid gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+        <div class="lg:sticky lg:top-28">
+          <p class="eyebrow">FAQ</p>
+          <h2 class="section-title">Frequently asked questions</h2>
+          <p class="body-copy mb-0">Short answers for the decisions that usually come up before applying.</p>
+        </div>
+
+        <div class="faq-list">
+          <details open>
+            <summary>Can I apply before choosing a car?<span>+</span></summary>
+            <p>Yes. You can start with an estimated budget, then match the approval route to a suitable vehicle from the inventory.</p>
+          </details>
+          <details>
+            <summary>How long does approval take?<span>+</span></summary>
+            <p>Many applications receive an initial response within 24 hours, depending on document readiness and funding entity review.</p>
+          </details>
+          <details>
+            <summary>What documents are usually needed?<span>+</span></summary>
+            <p>Requirements vary, but identity documents, driving license, income proof, and bank statements are commonly requested.</p>
+          </details>
+          <details>
+            <summary>Is delivery really available within 48 hours?<span>+</span></summary>
+            <p>Delivery within 48 hours is available after approval, signing, payment completion, and vehicle readiness are confirmed.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative bg-white py-28">
+    <div class="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-[#EAEAEA]/60 to-transparent"></div>
+    <div class="container relative mx-auto px-4 lg:px-6">
+      <div class="mb-16 grid items-end gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+        <div>
+          <p class="eyebrow">Why CityCar</p>
+          <h2 class="section-title">A more intelligent automotive experience</h2>
+        </div>
+        <p class="body-copy mb-0">The platform is designed around comparison, financing clarity, and fast human support,
+          so the experience feels more like a premium product than a dealership visit.</p>
+      </div>
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="feature-card"><span>01</span>
+          <h3>Verified, not just listed</h3>
+          <p>Every car goes through a structured inspection before it appears on the platform.</p>
+        </div>
+        <div class="feature-card md:translate-y-8"><span>02</span>
+          <h3>Financing without friction</h3>
+          <p>Monthly payment logic is visible early, with clear routes to apply or compare.</p>
+        </div>
+        <div class="feature-card"><span>03</span>
+          <h3>Transparent pricing</h3>
+          <p>Each listing keeps pricing, ownership type, and key specifications easy to scan.</p>
+        </div>
+        <div class="feature-card md:translate-y-8"><span>04</span>
+          <h3>A real specialist team</h3>
+          <p>WhatsApp, phone, and in-person support stay close to the browsing journey.</p>
+        </div>
       </div>
     </div>
   </section>
